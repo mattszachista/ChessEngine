@@ -24,14 +24,9 @@ class GameState():
         self.whiteToMove = True
         self.moveLog = []
 
-class Move():
-    
-    def __init__(self, startSq, endSq, board):
-
-class Test
-    def __init__(self):
-
-test text
+# class Move():
+#
+#     def __init__(self, startSq, endSq, board):
 
 
 

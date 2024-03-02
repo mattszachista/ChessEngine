@@ -6,12 +6,9 @@ import pygame as p
 import ChessEngine
 
 WIDTH = HEIGHT = 512
-# 400 is another option
-DIMENSIONS = 8
-# dimensions of a chess board are 8x8
+DIMENSIONS = 8 # dimensions of a chess board are 8x8
 SQ_SIZE = HEIGHT // DIMENSIONS
-MAX_FPS = 15
-# for animation
+MAX_FPS = 15 # for animation
 IMAGES = {}
 
 """
@@ -45,8 +42,9 @@ def main():
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+            # mouse handler
             elif e.type == p.MOUSEBUTTONDOWN:
-                # location == p.mouse.get_pos()  # (x,y) location of mouse
+                location = p.mouse.get_pos()  # (x,y) location of mouse
                 col = location[0]//SQ_SIZE
                 row = location[1]//SQ_SIZE
                 if sqSelected == (row, col):  # the user clicked the same square twice
@@ -61,6 +59,10 @@ def main():
                     gs.makeMove(move)
                     sqSelected = ()
                     playerClicks = []
+            # key handler
+            elif e.type == p.KEYDOWN:
+                if e.key == p.K_z: #undo when 'z' is pressed
+                    gs.undoMove()
 
         draw_game_state(screen, gs)
         clock.tick(MAX_FPS)

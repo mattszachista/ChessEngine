@@ -27,10 +27,6 @@ class GameState():
 class Move():
     def __init__(self, startSq, endSq, board):
 
-class Test():
-    def __init__(self):
-        def test():
-
 
 
 

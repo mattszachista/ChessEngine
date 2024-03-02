@@ -55,10 +55,10 @@ def main():
                 else:
                     sqSelected = (row, col)
                     playerClicks.append(sqSelected)  # append for both 1st and 2nd click
-                if len(playerClicks) == 2:
-                    draw_game_state(screen, gs)
-                    clock.tick(MAX_FPS)
-                    p.display.flip()
+            if len(playerClicks) == 2:
+                draw_game_state(screen, gs)
+                clock.tick(MAX_FPS)
+                p.display.flip()
 
 """
 Responsible for all the graphics within a current game state.

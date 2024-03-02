@@ -46,7 +46,7 @@ def main():
             if e.type == p.QUIT:
                 running = False
             elif e.type == p.MOUSEBUTTONDOWN:
-                location == p.mouse.get_pos()  # (x,y) location of mouse
+                # location == p.mouse.get_pos()  # (x,y) location of mouse
                 col = location[0]//SQ_SIZE
                 row = location[1]//SQ_SIZE
                 if sqSelected == (row, col):  # the user clicked the same square twice
@@ -56,11 +56,9 @@ def main():
                     sqSelected = (row, col)
                     playerClicks.append(sqSelected)  # append for both 1st and 2nd click
                 if len(playerClicks) == 2:
-
-        draw_game_state(screen, gs)
-        clock.tick(MAX_FPS)
-        p.display.flip()
-
+                    draw_game_state(screen, gs)
+                    clock.tick(MAX_FPS)
+                    p.display.flip()
 
 """
 Responsible for all the graphics within a current game state.

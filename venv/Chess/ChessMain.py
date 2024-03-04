@@ -5,7 +5,7 @@ This is our main driver file. It will be responsible for handling user input and
 import pygame as p
 import ChessEngine
 
-WIDTH = HEIGHT = 512
+WIDTH = HEIGHT = 600
 DIMENSIONS = 8 # dimensions of a chess board are 8x8
 SQ_SIZE = HEIGHT // DIMENSIONS
 MAX_FPS = 15 # for animation
@@ -61,8 +61,10 @@ def main():
                     if move in validMoves:
                         gs.makeMove(move)
                         moveMade = True
-                    sqSelected = ()
-                    playerClicks = []
+                        sqSelected = ()
+                        playerClicks = []
+                    else:
+                        playerClicks = [sqSelected]
             # key handler
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z: #undo when 'z' is pressed

@@ -84,7 +84,6 @@ class GameState():
         else:
             self.checkmate = False
             self.staleMate = False
-
         return moves
 
     """

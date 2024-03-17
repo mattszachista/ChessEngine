@@ -3,9 +3,12 @@ This is our main driver file. It will be responsible for handling user input and
 """
 
 import pygame as p
+import sys
 import ChessEngine
+import pygame.font
 
 WIDTH = HEIGHT = 600
+BACKGROUND_COLOR = 'white'
 DIMENSIONS = 8 # dimensions of a chess board are 8x8
 SQ_SIZE = HEIGHT // DIMENSIONS
 MAX_FPS = 15 # for animation
@@ -26,7 +29,6 @@ def load_images():
 """
 This part will handle inputs and updating graphics.
 """
-
 
 def main():
     p.init()
@@ -58,12 +60,13 @@ def main():
                 if len(playerClicks) == 2:
                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
                     print(move.getChessNotation())
-                    if move in validMoves:
-                        gs.makeMove(move)
-                        moveMade = True
-                        sqSelected = ()
-                        playerClicks = []
-                    else:
+                    for i in range(len(validMoves)):
+                        if move == validMoves[i]:
+                            gs.makeMove(validMoves[i])
+                            moveMade = True
+                            sqSelected = ()
+                            playerClicks = []
+                    if not moveMade:
                         playerClicks = [sqSelected]
             # key handler
             elif e.type == p.KEYDOWN:
@@ -78,10 +81,10 @@ def main():
         clock.tick(MAX_FPS)
         p.display.flip()
 
+
 """
 Responsible for all the graphics within a current game state.
 """
-
 
 def draw_game_state(screen, gs):
     drawBoard(screen)  # draw squares on the board

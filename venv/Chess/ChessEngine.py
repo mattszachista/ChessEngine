@@ -110,8 +110,8 @@ class GameState():
             #undo castle move
             if move.isCastleMove:
                 if move.endCol - move.startCol == 2: #kingside:
-                    self.board[move.endRow][move.endCol +1] = self.board[move.endRow][move.endCol-1]
-                    self.board[move.endRow][move.endCol -1] = '--'
+                    self.board[move.endRow][move.endCol + 1] = self.board[move.endRow][move.endCol - 1]
+                    self.board[move.endRow][move.endCol - 1] = '--'
                 else: #queenside
                     self.board[move.endRow][move.endCol - 2] = self.board[move.endRow][move.endCol + 1]
                     self.board[move.endRow][move.endCol + 1] = '--'
@@ -128,7 +128,7 @@ class GameState():
             if move.startRow == 7:
                 if move.startCol == 0: #left rook
                     self.currentCastlingRight.wqs = False
-                elif move.startCol == 7: #rights rook
+                elif move.startCol == 7: #right rook
                     self.currentCastlingRight.wks = False
         elif move.pieceMoved == 'bR':
             if move.startRow == 0:
@@ -218,16 +218,16 @@ class GameState():
     def getPawnMoves(self, r, c, moves):
         if self.whiteToMove: # white pawn move
             if self.board[r - 1][c] == "--": #1 square pawn advance
-                moves.append(Move((r, c), (r-1, c), self.board))
-                if r == 6 and self.board[r-2][c] == "--": # 2 square pawn advance
-                    moves.append(Move((r, c), (r-2, c), self.board))
-            if c-1 >= 0: # captures to the left
-                if self.board[r-1][c-1][0] == 'b': # enemy piece to capture
+                moves.append(Move((r, c), (r - 1, c), self.board))
+                if r == 6 and self.board[r - 2][c] == "--": # 2 square pawn advance
+                    moves.append(Move((r, c), (r - 2, c), self.board))
+            if c - 1 >= 0: # captures to the left
+                if self.board[r - 1][c - 1][0] == 'b': # enemy piece to capture
                     moves.append(Move((r, c), (r - 1, c - 1), self.board))
-                elif (r-1, c-1) == self.enpassantPossible:
+                elif (r - 1, c - 1) == self.enpassantPossible:
                     moves.append(Move((r, c), (r - 1, c - 1), self.board, isEnpassantMove=True))
-            if c+1 <= 7: # captures to the right
-                if self.board[r-1][c+1][0] == 'b': # enemy piec to capture
+            if c + 1 <= 7: # captures to the right
+                if self.board[r - 1][c + 1][0] == 'b': # enemy piece to capture
                     moves.append(Move((r, c), (r - 1, c + 1), self.board))
                 elif (r - 1, c + 1) == self.enpassantPossible:
                     moves.append(Move((r, c), (r - 1, c + 1), self.board, isEnpassantMove=True))
@@ -236,17 +236,17 @@ class GameState():
                 moves.append(Move((r, c), (r + 1, c), self.board))
                 if r == 1 and self.board[r + 2][c] == "--": # 2 square move
                     moves.append(Move((r, c), (r + 2, c), self.board))
-        # captures
-        if c - 1 >= 0: #capture to the left
-            if self.board[r + 1][c-1][0] == 'w':
-                moves.append(Move((r, c), (r + 1, c - 1), self.board))
-            elif (r + 1, c - 1) == self.enpassantPossible:
-                moves.append(Move((r, c), (r + 1, c - 1), self.board, isEnpassantMove=True))
-        if c + 1 <= 7: #capture to the right
-            if self.board[r + 1][c + 1][0] == 'w':
-                moves.append(Move((r, c), (r + 1, c +1), self.board))
-            elif (r + 1, c + 1) == self.enpassantPossible:
-                moves.append(Move((r, c), (r + 1, c + 1), self.board, isEnpassantMove=True))
+            # captures
+            if c - 1 >= 0: #capture to the left
+                if self.board[r + 1][c - 1][0] == 'w':
+                    moves.append(Move((r, c), (r + 1, c - 1), self.board))
+                elif (r + 1, c - 1) == self.enpassantPossible:
+                    moves.append(Move((r, c), (r + 1, c - 1), self.board, isEnpassantMove=True))
+            if c + 1 <= 7: #capture to the right
+                if self.board[r + 1][c + 1][0] == 'w':
+                    moves.append(Move((r, c), (r + 1, c + 1), self.board))
+                elif (r + 1, c + 1) == self.enpassantPossible:
+                    moves.append(Move((r, c), (r + 1, c + 1), self.board, isEnpassantMove=True))
 
 
     """
@@ -344,15 +344,15 @@ class GameState():
             self.getQueensideCastleMoves(r, c, moves)
 
     def getKingsideCastleMoves(self, r, c, moves):
-        if self.board[r][c+1] == '--' and self.board[r][c+2] == '--':
-            if not self.squareUnderAttack(r, c+1) and not self.squareUnderAttack(r, c+2):
-                moves.append(Move((r,c), (r,c+2), self.board, isCastleMove=True))
+        if self.board[r][c + 1] == '--' and self.board[r][c + 2] == '--':
+            if not self.squareUnderAttack(r, c + 1) and not self.squareUnderAttack(r, c + 2):
+                moves.append(Move((r, c), (r, c + 2), self.board, isCastleMove=True))
 
 
     def getQueensideCastleMoves(self, r, c, moves):
-        if self.board[r][c-1] == '--' and self.board[r][c-2] == '--':
-            if not self.squareUnderAttack(r, c-1) and not self.squareUnderAttack(r, c-2):
-                moves.append(Move((r,c), (r,c-2), self.board, isCastleMove=True))
+        if self.board[r][c - 1] == '--' and self.board[r][c - 2] == '--':
+            if not self.squareUnderAttack(r, c - 1) and not self.squareUnderAttack(r, c-2):
+                moves.append(Move((r, c), (r, c - 2), self.board, isCastleMove=True))
 
 
 
